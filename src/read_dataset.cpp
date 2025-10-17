@@ -38,4 +38,47 @@ void loadMNIST(const std::string& filename) {
               << " | Images: " << num_images
               << " | Rows: " << num_rows
               << " | Cols: " << num_cols << std::endl;
+
+
+    const int image_size = num_rows * num_cols; 
+    std::vector<std::vector<unsigned char>> dataset(num_images, std::vector<unsigned char>(image_size));
+
+    for (int i = 0; i < num_images; ++i) {
+        file.read(reinterpret_cast<char*>(dataset[i].data()), image_size);
+    }
+
+
+    std::cout << "Stored " << num_images << " images.\n";   
+
+
+    file.close();
+    //return dataset;
+}
+
+
+void loadSIFT(const std::string& filename) {
+    std::cout << "Loading SIFT dataset from: " << filename <<std::endl;
+    std::ifstream file(filename, std::ios::binary);
+    if (!file.is_open())
+        throw std::runtime_error("Cannot open file: " + filename);
+    
+
+    std::vector<std::vector<float>> dataset;
+    while (file.peek() != EOF) {
+        int32_t dim = 0;
+        file.read(reinterpret_cast<char*>(&dim), sizeof(int32_t)); 
+
+        if (dim != 128) {
+            std::cerr << "Unexpected dimension: " << dim << std::endl;
+            break;
+        }
+
+        std::vector<float> vec(dim);
+        file.read(reinterpret_cast<char*>(vec.data()), dim * sizeof(float));  
+        dataset.push_back(vec);
+    }
+
+    std::cout << "Read " << dataset.size() << " SIFT vectors." << std::endl;
+    file.close();
+    //return dataset;
 }

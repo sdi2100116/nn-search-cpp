@@ -1,0 +1,5 @@
+List with possible commands so we can copy paste
+
+/search –d <input file> –q <query file> –k <int> -L <int> -w <double> -ο
+<output file> -Ν <number of nearest> -R <radius> -type <flag> -lsh -range
+<true|false>

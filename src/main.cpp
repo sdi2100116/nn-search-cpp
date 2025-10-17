@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "../include/read_dataset.hpp"
+#include "../include/algorithm_params.hpp"
 int main(int argc, char* argv[]) {
 
     if (argc < 2) {
@@ -15,7 +16,7 @@ int main(int argc, char* argv[]) {
             loadMNIST(path);
         } else if (dataset == "sift") {
             std::cout << "SIFT dataset...\n";
-            //loadSIFT();
+            loadSIFT(path);
         } else {
             std::cerr << "Unknown dataset: " << dataset << "\n";
             return 1;
